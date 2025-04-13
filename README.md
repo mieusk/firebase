@@ -33,11 +33,11 @@ Creates or overwrites a value at the given path.
 
 Deletes the node at the specified path.
 
-**`firebase:node(path: string) reply FirebaseNode`**
+**`firebase:node(path: string) reply (node: table)`**
 
 Returns a special table-like object representing a Firebase node, allowing field access and partial updates through method `:update`.
 
-**`firebase:query(path: string) reply FirebaseQuery`**
+**`firebase:query(path: string) reply (query)`**
 Creates a new query object for advanced filtering.
 
 - **`:where(field: string, operator: string, value: any)`** – Adds a filter condition (`==`, `>=`, `<=`, etc.).
