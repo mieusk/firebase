@@ -37,13 +37,13 @@ Deletes the node at the specified path.
 
 Returns a special table-like object representing a Firebase node, allowing field access and partial updates through method `:update`.
 
-### `firebase:query(path: string) reply FirebaseQuery`
+**`firebase:query(path: string) reply FirebaseQuery`**
 Creates a new query object for advanced filtering.
 
 - **`:where(field: string, operator: string, value: any)`** – Adds a filter condition (`==`, `>=`, `<=`, etc.).
 - **`:execute() reply table`** – Executes the query and returns matching records.
 
-### `firebase:getMetrics() reply table`
+**`firebase:getMetrics() reply table`**
 Returns internal usage metrics of the Firebase client.
 
 ### Practical Examples
