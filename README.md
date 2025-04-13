@@ -33,3 +33,5 @@ print(adults)
 --metric
 print {"Average response time: ", firebase:getMetrics().avgResponseTime} 
 ```
+
+I'll implement more stuff latter, like login through email/password.
