@@ -1,60 +1,68 @@
-# Firebase
+# Firebase Lua API  
 
 Underwork, but already works.
 
-## Simple exemples
+---
 
-To get a value.
+### Getting started
+
+Download the `firebase.lua` and put somewhere.
 
 ```lua
 local FirebaseAPI = require 'firebase'
-local json = require 'json'
-
 local firebase = FirebaseAPI.new(URL, TOKEN)
-
---get
-local data, err = firebase:get('users/user1')
-print(data, err)
 ```
 
-Or create 50 values
+- **`FirebaseAPI.new(url: string, token: string)`**  
+  Initializes a new authenticated Firebase API.
+
+---
+
+### Methods
+
+**`firebase:get(path: string) reply (data: table | nil, error: string | nil)`**
+
+Fetches the value at the specified path in the Firebase Realtime Database.
+
+
+**`firebase:put(path: string, value: table) reply (data: table | nil, error: string | nil)`**
+
+Creates or overwrites a value at the given path.
+
+**`firebase:delete(path: string) reply (_)`**
+
+Deletes the node at the specified path.
+
+**`firebase:node(path: string) reply FirebaseNode`**
+
+Returns a special table-like object representing a Firebase node, allowing field access and partial updates through method `:update`.
+
+### `firebase:query(path: string) reply FirebaseQuery`
+Creates a new query object for advanced filtering.
+
+- **`:where(field: string, operator: string, value: any)`** – Adds a filter condition (`==`, `>=`, `<=`, etc.).
+- **`:execute() reply table`** – Executes the query and returns matching records.
+
+### `firebase:getMetrics() reply table`
+Returns internal usage metrics of the Firebase client.
+
+### Practical Examples
+
+##### Insert 50 random users
 ```lua
-for i=1, 50 do
-    print{firebase:put("users/user"..i, {name = i, age = math.random(122)})}
+for i = 1, 50 do
+    firebase:put("users/user"..i, {name = i, age = math.random(122)})
 end
 ```
 
-Delete values that starts with 3.
+---
+
+##### Delete users whose keys start with "3"
 ```lua
-local data = firebase:get('users')
+local data = firebase:get("users")
 for k in next, data do
-    if tostring(k):sub(1, 1) == '3' then
-        firebase:delete('users/'..k)
+    if tostring(k):sub(1, 1) == "3" then
+        firebase:delete("users/"..k)
     end
 end
 ```
-
-Update only one value. Manipulate as Lua Table.
-```lua
---node
-local user = firebase:node('users/user1')
-user:update({age = 31})
-print(user.name) --get value
-```
-
-You can do query too.
-```lua
---query
-local adults = firebase:query('users')
-    :where('age', '>=', 18)
-    :execute()
-print(adults)
-```
-
-Or known in seconds the delay.
-```lua
---metric
-print {"Average response time: ", firebase:getMetrics().avgResponseTime} 
-```
-
-I'll implement more stuff latter, like login through email/password.
