@@ -20,30 +20,30 @@ local firebase = FirebaseAPI.new(URL, TOKEN)
 
 ### Methods
 
-**`firebase:get(path: string) reply (data: table | nil, error: string | nil)`**
+**`:get(path: string)` — `(data: table | nil, error: string | nil)`**
 
 Fetches the value at the specified path in the Firebase Realtime Database.
 
 
-**`firebase:put(path: string, value: table) reply (data: table | nil, error: string | nil)`**
+**`:put(path: string, value: table)` — `(data: table | nil, error: string | nil)`**
 
 Creates or overwrites a value at the given path.
 
-**`firebase:delete(path: string) reply (_)`**
+**`:delete(path: string)` — `(nil)`**
 
 Deletes the node at the specified path.
 
-**`firebase:node(path: string) reply (node: table)`**
+**`:node(path: string)` — `(node: metatable)`**
 
 Returns a special table-like object representing a Firebase node, allowing field access and partial updates through method `:update`.
 
-**`firebase:query(path: string) reply (query)`**
+**`:query(path: string)` — `(query: metatable)`**
 Creates a new query object for advanced filtering.
 
 - **`:where(field: string, operator: string, value: any)`** – Adds a filter condition (`==`, `>=`, `<=`, etc.).
 - **`:execute() reply table`** – Executes the query and returns matching records.
 
-**`firebase:getMetrics() reply table`**
+**`:getMetrics()` — `(metrics: table)`**
 Returns internal usage metrics of the Firebase client.
 
 ### Practical Examples
